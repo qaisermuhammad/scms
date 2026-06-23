@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Downloads - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .downloads-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .downloads-section { padding: 80px 0; background: #fff; }
+    .download-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 25px 30px;
+        background: #fff;
+        border-radius: var(--border-radius);
+        border: 1px solid #eee;
+        transition: all 0.3s;
+        margin-bottom: 15px;
+    }
+    .download-card:hover {
+        border-color: var(--primary-color);
+        transform: translateX(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .download-icon {
+        min-width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.3rem;
+    }
+    .download-info { flex: 1; }
+    .download-info h5 { font-size: 1rem; margin-bottom: 5px; color: var(--dark-color); }
+    .download-info p { color: #888; font-size: 0.8rem; margin: 0; }
+    .download-btn {
+        background: var(--primary-color);
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: none;
+    }
+    .download-btn:hover { background: var(--secondary-color); color: #fff; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Downloads</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Downloads</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Downloads Intro -->
+<section class="downloads-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Resources</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Download Center</h2>
+                <p style="color:#666;">
+                    Download important documents, forms, and resources related to admissions, academics, and college policies.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Documents -->
+<section class="downloads-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5" data-aos="fade-up">
+                <h3 style="margin-bottom:25px;"><i class="fas fa-file-alt me-2" style="color:var(--primary-color);"></i>Admission Documents</h3>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Admission Prospectus 2026</h5>
+                        <p>PDF | 2.5 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Application Form</h5>
+                        <p>PDF | 500 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Fee Structure 2026</h5>
+                        <p>PDF | 300 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Scholarship Application Form</h5>
+                        <p>PDF | 400 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                <h3 style="margin-bottom:25px;"><i class="fas fa-book me-2" style="color:var(--primary-color);"></i>Academic Documents</h3>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Academic Calendar 2026</h5>
+                        <p>PDF | 1.2 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Course Catalog</h5>
+                        <p>PDF | 3.5 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Examination Rules & Regulations</h5>
+                        <p>PDF | 800 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Student Handbook</h5>
+                        <p>PDF | 2.0 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6" data-aos="fade-up">
+                <h3 style="margin-bottom:25px;"><i class="fas fa-gavel me-2" style="color:var(--primary-color);"></i>Policies & Forms</h3>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>College Code of Conduct</h5>
+                        <p>PDF | 600 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Hostel Rules & Regulations</h5>
+                        <p>PDF | 500 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>Leave Application Form</h5>
+                        <p>PDF | 200 KB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <h3 style="margin-bottom:25px;"><i class="fas fa-certificate me-2" style="color:var(--primary-color);"></i>Affiliation & Recognition</h3>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>KMU Affiliation Letter</h5>
+                        <p>PDF | 1.5 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>PNC Recognition Certificate</h5>
+                        <p>PDF | 1.0 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+                
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h5>HEC Registration Document</h5>
+                        <p>PDF | 1.2 MB</p>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download me-1"></i>Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Need Help?</h2>
+        <p>If you cannot find the document you need, please contact our admissions office.</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary-custom">Contact Us</a>
+    </div>
+</section>
+{% endblock %}

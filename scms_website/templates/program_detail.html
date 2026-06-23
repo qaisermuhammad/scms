@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}{{ program.title }} - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .program-detail-hero {
+        padding: 100px 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #0d3d16 100%);
+        color: #fff;
+        text-align: center;
+    }
+    .program-detail-hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+    .program-detail-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+    .program-detail-section { padding: 80px 0; background: #fff; }
+    .info-card {
+        background: #f8f9fa;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        margin-bottom: 25px;
+        border-left: 4px solid var(--primary-color);
+    }
+    .info-card h4 { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 15px; }
+    .info-card ul { list-style: none; padding: 0; }
+    .info-card ul li { padding: 8px 0; border-bottom: 1px solid #eee; color: #666; }
+    .info-card ul li:last-child { border-bottom: none; }
+    .info-card ul li i { color: var(--primary-color); margin-right: 10px; width: 20px; }
+    .syllabus-table { width: 100%; border-collapse: collapse; }
+    .syllabus-table th { background: var(--primary-color); color: #fff; padding: 15px; text-align: left; }
+    .syllabus-table td { padding: 15px; border-bottom: 1px solid #eee; color: #666; }
+    .syllabus-table tr:hover { background: #f8f9fa; }
+    .career-card {
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        color: #fff;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+    .career-card:hover { transform: translateY(-5px); }
+    .career-card i { font-size: 2.5rem; margin-bottom: 15px; color: var(--accent-color); }
+    .career-card h5 { font-size: 1rem; margin-bottom: 10px; }
+    .career-card p { font-size: 0.85rem; opacity: 0.9; margin: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="program-detail-hero">
+    <div class="container" data-aos="fade-up">
+        <div style="width:100px;height:100px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;font-size:2.5rem;">
+            <i class="fas fa-{{ program.icon }}"></i>
+        </div>
+        <h1>{{ program.title }}</h1>
+        <p>{{ program.description }}</p>
+        <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap">
+            <span><i class="far fa-clock me-2"></i>{{ program.duration }}</span>
+            <span><i class="fas fa-users me-2"></i>{{ program.seats }} Seats</span>
+            <span><i class="fas fa-university me-2"></i>{{ program.affiliation }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="program-detail-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div data-aos="fade-up">
+                    <h3 style="margin-bottom:20px;">Program Overview</h3>
+                    <p style="color:#666;line-height:1.8;margin-bottom:25px;">
+                        The {{ program.title }} program at Safi College of Medical Sciences is designed to provide students with comprehensive theoretical knowledge and practical skills required for a successful career in the healthcare sector.
+                    </p>
+                    <p style="color:#666;line-height:1.8;margin-bottom:25px;">
+                        Students will undergo rigorous academic training combined with hands-on clinical experience at our affiliated hospitals and medical centers. The curriculum is regularly updated to meet international standards and industry requirements.
+                    </p>
+                </div>
+
+                <div class="info-card" data-aos="fade-up">
+                    <h4><i class="fas fa-clipboard-list me-2"></i>Eligibility Criteria</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i>{{ program.eligibility }}</li>
+                        <li><i class="fas fa-check"></i>Valid CNIC/B-Form</li>
+                        <li><i class="fas fa-check"></i>Domicile of Khyber Pakhtunkhwa (preferred)</li>
+                        <li><i class="fas fa-check"></i>Entry test as per KMU policy</li>
+                        <li><i class="fas fa-check"></i>Medical fitness certificate</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" data-aos="fade-up">
+                    <h4><i class="fas fa-book me-2"></i>Program Structure</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i>Duration: {{ program.duration }}</li>
+                        <li><i class="fas fa-check"></i>Total Seats: {{ program.seats }}</li>
+                        <li><i class="fas fa-check"></i>Semester System</li>
+                        <li><i class="fas fa-check"></i>Theory + Practical + Clinical Training</li>
+                        <li><i class="fas fa-check"></i>Final Year Project/Dissertation</li>
+                        <li><i class="fas fa-check"></i>Internship at Affiliated Hospitals</li>
+                    </ul>
+                </div>
+
+                <div data-aos="fade-up">
+                    <h3 style="margin:30px 0 20px;">Fee Structure</h3>
+                    <table class="syllabus-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Admission Fee (One-time)</td><td>TBA</td></tr>
+                            <tr><td>Tuition Fee</td><td>TBA</td></tr>
+                            <tr><td>Examination Fee</td><td>TBA</td></tr>
+                            <tr><td>Library Fee</td><td>TBA</td></tr>
+                            <tr><td>Lab Fee</td><td>TBA</td></tr>
+                            <tr><td>Security Deposit (Refundable)</td><td>TBA</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:#888;font-size:0.85rem;margin-top:15px;"><i class="fas fa-info-circle me-1"></i> Fees are subject to revision. Scholarships available for deserving students.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="info-card" data-aos="fade-up" style="background:linear-gradient(135deg,var(--primary-color),#0d3d16);color:#fff;border:none;">
+                    <h4 style="color:#fff;"><i class="fas fa-file-alt me-2"></i>Required Documents</h4>
+                    <ul>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>Matric Certificate</li>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>Relevant prerequisite certificate</li>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>CNIC/B-Form</li>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>Domicile Certificate</li>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>4 Passport Size Photos</li>
+                        <li style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.2);"><i class="fas fa-check" style="color:var(--accent-color);"></i>Character Certificate</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" data-aos="fade-up">
+                    <h4><i class="fas fa-calendar-alt me-2"></i>Important Dates</h4>
+                    <ul>
+                        <li><i class="fas fa-calendar"></i>Admissions Open: May 1, 2026</li>
+                        <li><i class="fas fa-calendar"></i>Last Date to Apply: To be announced</li>
+                        <li><i class="fas fa-calendar"></i>Entry Test: To be announced</li>
+                        <li><i class="fas fa-calendar"></i>Result Announcement: To be announced</li>
+                        <li><i class="fas fa-calendar"></i>Classes Begin: To be announced</li>
+                    </ul>
+                </div>
+
+                <div data-aos="fade-up">
+                    <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom w-100 mb-3">Apply for This Program</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-custom w-100">Contact for More Info</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5" data-aos="fade-up">
+            <h3 style="margin-bottom:30px;text-align:center;">Career Opportunities</h3>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="career-card">
+                        <i class="fas fa-hospital"></i>
+                        <h5>Hospitals & Clinics</h5>
+                        <p>Work in public and private healthcare facilities</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="career-card">
+                        <i class="fas fa-heart"></i>
+                        <h5>Community Care</h5>
+                        <p>Support patients in community and outreach settings</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="career-card">
+                        <i class="fas fa-university"></i>
+                        <h5>Academia</h5>
+                        <p>Teach and mentor future healthcare professionals</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="career-card">
+                        <i class="fas fa-globe"></i>
+                        <h5>International</h5>
+                        <p>Opportunities abroad with recognized skills</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

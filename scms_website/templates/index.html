@@ -1,0 +1,432 @@
+{% extends "base.html" %}
+
+{% block title %}{{ college.name }} - {{ college.tagline }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(26,95,42,0.92) 0%, rgba(26,26,46,0.92) 100%), 
+                    url('{{ url_for('static', filename='images/profile.jpg') }}') center/cover;
+        overflow: hidden;
+    }
+    .hero-content { position: relative; z-index: 2; color: #fff; }
+    .hero-badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+    .hero-content h1 span { color: var(--accent-color); }
+    .hero-content p {
+        font-size: 1.2rem;
+        color: rgba(255,255,255,0.85);
+        max-width: 600px;
+        margin-bottom: 35px;
+    }
+    .hero-stats { display: flex; gap: 40px; margin-top: 40px; }
+    .hero-stat { text-align: center; }
+    .hero-stat h3 { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 5px; }
+    .hero-stat p { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin: 0; }
+    .hero-shape {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.03);
+        animation: float 6s ease-in-out infinite;
+    }
+    .hero-shape-1 { width: 400px; height: 400px; top: -100px; right: -100px; animation-delay: 0s; }
+    .hero-shape-2 { width: 300px; height: 300px; bottom: -50px; left: -50px; animation-delay: 2s; }
+    .hero-shape-3 { width: 200px; height: 200px; top: 50%; right: 20%; animation-delay: 4s; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    
+    .about-preview { padding: 100px 0; background: #fff; }
+    .about-img-wrapper { position: relative; }
+    .about-img-wrapper img { border-radius: var(--border-radius); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .about-img-badge {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        background: var(--primary-color);
+        color: #fff;
+        padding: 25px 30px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(26,95,42,0.3);
+    }
+    .about-img-badge h3 { font-size: 2rem; margin-bottom: 0; }
+    .about-img-badge p { margin: 0; font-size: 0.85rem; opacity: 0.9; }
+    
+    .programs-section { padding: 100px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .program-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 35px 30px;
+        text-align: center;
+        transition: all 0.4s;
+        border: none;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .program-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        transform: scaleX(0);
+        transition: transform 0.4s;
+    }
+    .program-card:hover::before { transform: scaleX(1); }
+    .program-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+    .program-icon {
+        width: 80px; height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: #fff;
+        font-size: 1.8rem;
+        transition: all 0.3s;
+    }
+    .program-card:hover .program-icon { transform: rotateY(360deg); }
+    .program-card h4 { font-size: 1.1rem; margin-bottom: 12px; color: var(--dark-color); }
+    .program-card p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
+    .program-meta { display: flex; justify-content: center; gap: 20px; font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+    .program-meta span i { color: var(--primary-color); margin-right: 5px; }
+    
+    .stats-section { padding: 80px 0; background: linear-gradient(135deg, var(--primary-color) 0%, #0d3d16 100%); color: #fff; }
+    .stat-item { text-align: center; padding: 20px; }
+    .stat-item i { font-size: 2.5rem; margin-bottom: 15px; color: var(--accent-color); }
+    .stat-item h3 { font-size: 2.8rem; margin-bottom: 5px; }
+    .stat-item p { font-size: 1rem; opacity: 0.85; margin: 0; }
+    
+    .why-choose { padding: 100px 0; background: #fff; }
+    .feature-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: var(--border-radius);
+        transition: all 0.3s;
+        height: 100%;
+    }
+    .feature-box:hover { background: var(--primary-color); color: #fff; transform: translateY(-5px); }
+    .feature-box:hover h4, .feature-box:hover p { color: #fff; }
+    .feature-box:hover .feature-icon { background: #fff; color: var(--primary-color); }
+    .feature-icon {
+        min-width: 60px; height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        transition: all 0.3s;
+    }
+    .feature-box h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--dark-color); }
+    .feature-box p { color: #666; font-size: 0.9rem; margin: 0; }
+    
+    .news-section { padding: 100px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .news-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        transition: all 0.3s;
+        height: 100%;
+    }
+    .news-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+    .news-img {
+        height: 200px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 3rem;
+    }
+    .news-body { padding: 25px; }
+    .news-date {
+        display: inline-block;
+        background: var(--primary-color);
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+    .news-body h4 { font-size: 1.1rem; margin-bottom: 12px; color: var(--dark-color); }
+    .news-body p { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+    .read-more { color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+    .read-more:hover { color: var(--secondary-color); padding-left: 5px; }
+    
+    .cta-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, rgba(26,95,42,0.95) 0%, rgba(26,26,46,0.95) 100%),
+                    url('{{ url_for('static', filename='images/profile.jpg') }}') center/cover fixed;
+        text-align: center;
+        color: #fff;
+    }
+    .cta-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .cta-section p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+    
+    @media (max-width: 768px) {
+        .hero-content h1 { font-size: 2.2rem; }
+        .hero-stats { gap: 20px; }
+        .hero-stat h3 { font-size: 1.8rem; }
+        .cta-section h2 { font-size: 1.8rem; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-star me-2"></i>Affiliated with KMU Peshawar</div>
+                    <h1>Shaping the Future of <span>Healthcare</span> Professionals</h1>
+                    <p>Welcome to Safi College of Medical Sciences, Mandani - a premier institution dedicated to excellence in nursing and allied health sciences education in Khyber Pakhtunkhwa.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{{ url_for('programs') }}" class="btn btn-primary-custom">Explore Programs</a>
+                        <a href="{{ url_for('about') }}" class="btn btn-outline-custom" style="border-color:#fff;color:#fff;">Learn More</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat"><h3>3</h3><p>Programs</p></div>
+                        <div class="hero-stat"><h3>TBA</h3><p>Students</p></div>
+                        <div class="hero-stat"><h3>2026</h3><p>Established</p></div>
+                        <div class="hero-stat"><h3>98%</h3><p>Success Rate</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left">
+                <div style="position:relative;">
+                    <div style="width:400px;height:400px;background:linear-gradient(135deg,var(--accent-color),var(--secondary-color));border-radius:30% 70% 70% 30% / 30% 30% 70% 70%;opacity:0.2;position:absolute;top:-30px;right:-30px;"></div>
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Safi College of Medical Sciences building" class="img-fluid rounded-4 shadow-lg" style="position:relative;z-index:1;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Preview -->
+<section class="about-preview">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <div class="about-img-wrapper">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Safi College of Medical Sciences campus" class="img-fluid">
+                    <div class="about-img-badge"><h3>2026</h3><p>Established</p></div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">About Our College</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Excellence in Healthcare Education Since 2026</h2>
+                <p style="color:#666;margin-bottom:20px;">
+                    Safi College of Medical Sciences, located in Mandani, Charsadda, KPK, is a leading institution dedicated to producing competent healthcare professionals. We currently offer BS Generic, LHV, and CNA programs.
+                </p>
+                <p style="color:#666;margin-bottom:25px;">
+                    Our college is affiliated with Khyber Medical University (KMU) Peshawar and recognized by the Pakistan Nursing Council (PNC) and Higher Education Commission (HEC). With state-of-the-art facilities and experienced faculty, we ensure our students receive the best education and clinical training.
+                </p>
+                <div class="row mb-4">
+                    <div class="col-6"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">KMU Affiliated</span></div></div>
+                    <div class="col-6"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">PNC Recognized</span></div></div>
+                    <div class="col-6 mt-3"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">Modern Labs</span></div></div>
+                    <div class="col-6 mt-3"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">Clinical Training</span></div></div>
+                </div>
+                <a href="{{ url_for('about') }}" class="btn btn-primary-custom">Read More About Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Section -->
+<section class="programs-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Our Programs</h2>
+            <p>We offer a wide range of degree programs in nursing and allied health sciences, designed to meet the growing demand for qualified healthcare professionals.</p>
+        </div>
+        <div class="row g-4">
+            {% for program in programs %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="program-card">
+                    <div class="program-icon"><i class="fas fa-{{ program.icon }}"></i></div>
+                    <h4>{{ program.title }}</h4>
+                    <p>{{ program.description[:120] }}...</p>
+                    <div class="program-meta">
+                        <span><i class="far fa-clock"></i>{{ program.duration }}</span>
+                        <span><i class="fas fa-users"></i>{{ program.seats }} Seats</span>
+                    </div>
+                    <a href="{{ url_for('program_detail', program_id=program.id) }}" class="btn btn-outline-custom w-100">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{{ url_for('programs') }}" class="btn btn-primary-custom">View All Programs</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Counter -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="stat-item"><i class="fas fa-graduation-cap"></i><h3 class="counter" data-target="3">0</h3><p>Degree Programs</p></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-item"><i class="fas fa-user-graduate"></i><h3 class="counter" data-target="0">0</h3><p>Enrolled Students</p></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-item"><i class="fas fa-user-md"></i><h3 class="counter" data-target="2026">0</h3><p>Established</p></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-item"><i class="fas fa-hospital"></i><h3 class="counter" data-target="5">0</h3><p>Affiliated Hospitals</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-choose">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Why Choose SCMS?</h2>
+            <p>Discover what makes Safi College of Medical Sciences the best choice for your healthcare education journey.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                    <div><h4>KMU Affiliated</h4><p>All programs are affiliated with Khyber Medical University, ensuring recognized and valued degrees across Pakistan.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-microscope"></i></div>
+                    <div><h4>Modern Laboratories</h4><p>State-of-the-art labs equipped with the latest medical equipment and simulation technology for hands-on learning.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+                    <div><h4>Clinical Training</h4><p>Practical training at affiliated hospitals and medical centers to build real-world clinical skills and confidence.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-award"></i></div>
+                    <div><h4>Experienced Faculty</h4><p>Learn from highly qualified professors and practicing healthcare professionals with decades of combined experience.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div><h4>Scholarships</h4><p>Merit-based and need-based scholarships available to support deserving students in their educational journey.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+                    <div><h4>Career Support</h4><p>Dedicated career counseling and placement services to help graduates secure positions in top healthcare institutions.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+<section class="news-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Latest News & Updates</h2>
+            <p>Stay updated with the latest happenings, announcements, and events at Safi College of Medical Sciences.</p>
+        </div>
+        <div class="row g-4">
+            {% for item in news %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="news-card">
+                    <div class="news-img"><i class="fas fa-newspaper"></i></div>
+                    <div class="news-body">
+                        <span class="news-date">{{ item.date }}</span>
+                        <span style="background:var(--accent-color);color:#fff;padding:3px 12px;border-radius:50px;font-size:0.75rem;font-weight:500;margin-left:8px;">{{ item.category }}</span>
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.summary }}</p>
+                        <a href="{{ item.link }}" class="read-more">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{{ url_for('news') }}" class="btn btn-primary-custom">View All News</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Ready to Start Your Healthcare Career?</h2>
+        <p>Join Safi College of Medical Sciences and become part of the next generation of healthcare professionals serving Pakistan and the world.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom">Apply for Admission</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-outline-custom" style="border-color:#fff;color:#fff;">Contact Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    const animateCounters = () => {
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / speed;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(animateCounters, 20);
+            } else {
+                counter.innerText = target + '+';
+            }
+        });
+    };
+    const statsSection = document.querySelector('.stats-section');
+    let counted = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !counted) { animateCounters(); counted = true; }
+        });
+    }, { threshold: 0.5 });
+    if (statsSection) observer.observe(statsSection);
+</script>
+{% endblock %}

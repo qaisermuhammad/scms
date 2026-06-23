@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .mission-vision { padding: 100px 0; background: #fff; }
+    .mv-card {
+        padding: 50px 35px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        transition: all 0.3s;
+        height: 100%;
+        border: 2px solid #eee;
+    }
+    .mv-card:hover { border-color: var(--primary-color); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+    .mv-icon { width: 90px; height: 90px; background: linear-gradient(135deg, var(--primary-color), #0d3d16); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; color: #fff; font-size: 2rem; }
+    .mv-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--dark-color); }
+    .mv-card p { color: #666; font-size: 0.95rem; line-height: 1.8; }
+    .values-section { padding: 100px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .value-item { display: flex; align-items: flex-start; gap: 20px; padding: 30px; background: #fff; border-radius: var(--border-radius); transition: all 0.3s; }
+    .value-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+    .value-icon { min-width: 55px; height: 55px; background: linear-gradient(135deg, var(--primary-color), #0d3d16); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
+    .value-item h4 { font-size: 1.1rem; margin-bottom: 8px; color: var(--dark-color); }
+    .value-item p { color: #666; font-size: 0.9rem; margin: 0; }
+    .timeline-section { padding: 100px 0; background: #fff; }
+    .timeline { position: relative; padding: 20px 0; }
+    .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--primary-color), var(--accent-color)); transform: translateX(-50%); }
+    .timeline-item { position: relative; margin-bottom: 50px; }
+    .timeline-item::after { content: ''; position: absolute; left: 50%; top: 0; width: 20px; height: 20px; background: var(--primary-color); border-radius: 50%; transform: translateX(-50%); border: 4px solid #fff; box-shadow: 0 0 0 4px var(--primary-color); }
+    .timeline-content { width: 45%; padding: 25px 30px; background: #f8f9fa; border-radius: var(--border-radius); position: relative; }
+    .timeline-content::after { content: ''; position: absolute; top: 10px; width: 0; height: 0; border: 10px solid transparent; }
+    .timeline-item:nth-child(odd) .timeline-content { margin-left: auto; margin-right: 55%; }
+    .timeline-item:nth-child(odd) .timeline-content::after { right: -20px; border-left-color: #f8f9fa; }
+    .timeline-item:nth-child(even) .timeline-content { margin-left: 55%; }
+    .timeline-item:nth-child(even) .timeline-content::after { left: -20px; border-right-color: #f8f9fa; }
+    .timeline-content h4 { color: var(--primary-color); font-size: 1.2rem; margin-bottom: 10px; }
+    .timeline-content p { color: #666; font-size: 0.9rem; margin: 0; }
+    .owner-section { padding: 100px 0; background: #fff; }
+    .owner-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border: 1px solid #e6e6e6;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+    }
+    .owner-photo {
+        width: 100%;
+        height: 430px;
+        object-fit: cover;
+        object-position: center top;
+    }
+    .owner-content { padding: 45px; }
+    .owner-content h2 { font-size: 2rem; margin-bottom: 8px; color: var(--dark-color); }
+    .owner-content .owner-role { color: var(--primary-color); font-weight: 700; margin-bottom: 14px; }
+    .owner-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--primary-color);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+        .timeline::before { left: 20px; }
+        .timeline-item::after { left: 20px; }
+        .timeline-item:nth-child(odd) .timeline-content, .timeline-item:nth-child(even) .timeline-content { width: calc(100% - 60px); margin-left: 50px; margin-right: 0; }
+        .timeline-item:nth-child(odd) .timeline-content::after, .timeline-item:nth-child(even) .timeline-content::after { left: -20px; border-right-color: #f8f9fa; border-left-color: transparent; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>About Us</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">About Us</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="about-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Safi College of Medical Sciences campus" class="img-fluid rounded-4 shadow-lg">
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Who We Are</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Safi College of Medical Sciences</h2>
+                <p style="color:#666;margin-bottom:20px;">
+                    Safi College of Medical Sciences (SCMS) is a premier institution of higher learning located in Mandani, Charsadda, Khyber Pakhtunkhwa. Established with a vision to address the growing need for qualified healthcare professionals in Pakistan, SCMS currently offers BS Generic, LHV, and CNA programs.
+                </p>
+                <p style="color:#666;margin-bottom:20px;">
+                    Our college is proudly affiliated with Khyber Medical University (KMU) Peshawar, one of the most prestigious medical universities in Pakistan. All our programs are recognized by the Pakistan Nursing Council (PNC) and the Higher Education Commission (HEC), ensuring that our graduates receive degrees that are valued and accepted nationwide.
+                </p>
+                <p style="color:#666;margin-bottom:25px;">
+                    At SCMS, we believe in a holistic approach to education that combines rigorous academic training with extensive practical experience. Our modern campus features advanced laboratories, simulation centers, and a comprehensive library, while our partnerships with leading hospitals provide students with invaluable clinical exposure.
+                </p>
+                <div class="row">
+                    <div class="col-6"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">KMU Affiliated</span></div></div>
+                    <div class="col-6"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">PNC Recognized</span></div></div>
+                    <div class="col-6 mt-3"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">HEC Approved</span></div></div>
+                    <div class="col-6 mt-3"><div class="d-flex align-items-center"><i class="fas fa-check-circle" style="color:var(--primary-color);font-size:1.2rem;margin-right:10px;"></i><span style="font-weight:600;">Modern Campus</span></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="owner-section">
+    <div class="container">
+        <div class="owner-card" data-aos="fade-up">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-5">
+                    <img src="{{ url_for('static', filename='images/' ~ owner.image) }}" alt="{{ owner.name }}" class="owner-photo">
+                </div>
+                <div class="col-lg-7">
+                    <div class="owner-content">
+                        <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">College Leadership</span>
+                        <h2>{{ owner.name }}</h2>
+                        <p class="owner-role">{{ owner.designation }}</p>
+                        <div class="owner-meta"><i class="fas fa-user-md"></i>{{ owner.qualification }}</div>
+                        <p style="color:#666;margin-bottom:18px;">
+                            {{ owner.specialty }} leading Safi College of Medical Sciences with a commitment to quality healthcare education, clinical excellence, and service to the community.
+                        </p>
+                        <p style="color:#666;margin:0;">
+                            Under his leadership, SCMS aims to prepare skilled, compassionate healthcare professionals for Khyber Pakhtunkhwa and beyond.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mission-vision">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Mission & Vision</h2>
+            <p>Guiding principles that drive our commitment to excellence in healthcare education.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="mv-card">
+                    <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>To provide quality education in nursing and allied health sciences that empowers students with the knowledge, skills, and values essential for delivering compassionate, evidence-based healthcare. We are committed to producing competent healthcare professionals who can meet the challenges of modern medicine and contribute positively to the health and well-being of individuals and communities across Pakistan.</p>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="mv-card">
+                    <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Our Vision</h3>
+                    <p>To be recognized as a center of excellence in healthcare education in Khyber Pakhtunkhwa and beyond, known for producing compassionate, competent, and innovative healthcare professionals. We envision SCMS as a leading institution that transforms aspiring students into skilled practitioners who excel as caregivers, leaders, researchers, and advocates for health in their communities and the nation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="values-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Our Core Values</h2>
+            <p>The principles that define our culture and guide every aspect of our institution.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <div><h4>Compassion</h4><p>We instill empathy and caring in our students, ensuring they treat every patient with dignity and respect.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-star"></i></div>
+                    <div><h4>Excellence</h4><p>We strive for the highest standards in education, research, and clinical practice at every level.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div><h4>Integrity</h4><p>We uphold the highest ethical standards and professional conduct in all our activities.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div><h4>Innovation</h4><p>We embrace modern teaching methods and technology to prepare students for the future of healthcare.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <div><h4>Community</h4><p>We are committed to serving our local community through education, health camps, and outreach programs.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+                    <div><h4>Accountability</h4><p>We take responsibility for our actions and continuously work to improve our programs and services.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="timeline-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Our Journey</h2>
+            <p>Key milestones in the development of Safi College of Medical Sciences.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <h4>2026 - Foundation</h4>
+                    <p>Safi College of Medical Sciences was established in Mandani, Charsadda with a vision to provide quality healthcare education in KPK.</p>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <h4>2026 - KMU Affiliation</h4>
+                    <p>Official affiliation secured with Khyber Medical University (KMU) Peshawar for all degree programs.</p>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <h4>2026 - First Admissions</h4>
+                    <p>First batch of students admitted across the current BS Generic, LHV, and CNA programs.</p>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <h4>2026 - Modern Labs</h4>
+                    <p>State-of-the-art laboratories and simulation center inaugurated to enhance practical learning.</p>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <h4>2026 - Campus Development</h4>
+                    <p>Expanded student support and learning facilities around the current healthcare curriculum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Be Part of Our Journey</h2>
+        <p>Join hundreds of students who have chosen SCMS as their pathway to a successful healthcare career.</p>
+        <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom">Apply Now</a>
+    </div>
+</section>
+
+<section style="padding: 30px 0 60px; background: #fff;">
+    <div class="container">
+        <div class="text-center" style="padding: 22px 18px; border: 1px solid #e9ecef; border-radius: var(--border-radius); background: #f8f9fa;">
+            <p style="margin: 0; color: #666;">
+                Website developed by
+                <strong>Qaiser Muhammad Abdur Rehman</strong>
+                <span class="mx-2">|</span>
+                <a href="mailto:qaisermuhammad@hotmail.com">qaisermuhammad@hotmail.com</a>
+                <span class="mx-2">|</span>
+                <a href="https://www.facebook.com/qaisermuhammad" target="_blank" rel="noopener">Facebook</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

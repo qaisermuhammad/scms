@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Our Faculty - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .faculty-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .faculty-section { padding: 80px 0; background: #fff; }
+    .faculty-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        transition: all 0.3s;
+        height: 100%;
+        text-align: center;
+    }
+    .faculty-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+    .faculty-img {
+        height: 250px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .faculty-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+    .faculty-img::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+    }
+    .faculty-body { padding: 25px; }
+    .faculty-body h4 { font-size: 1.2rem; margin-bottom: 5px; color: var(--dark-color); }
+    .faculty-body .designation { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
+    .faculty-body .qualification { color: #666; font-size: 0.85rem; margin-bottom: 5px; }
+    .faculty-body .experience { color: #888; font-size: 0.85rem; }
+    .faculty-body .department-badge {
+        display: inline-block;
+        background: var(--accent-color);
+        color: #fff;
+        padding: 4px 15px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Our Faculty</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Faculty</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Faculty Intro -->
+<section class="faculty-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Meet Our Team</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">College Director</h2>
+                <p style="color:#666;">
+                    Meet Dr Siyyar Ahmad Safi, Director of Safi College of Medical Sciences, an ENT and Rhinoplasty Surgeon committed to quality healthcare education.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Faculty Grid -->
+<section class="faculty-section">
+    <div class="container">
+        <div class="row g-4">
+            {% for member in faculty %}
+            <div class="col-lg-4 col-md-6 mx-auto" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="faculty-card">
+                    <div class="faculty-img">
+                        {% if member.image == 'drsiyyar.jpeg' %}
+                        <img src="{{ url_for('static', filename='images/' ~ member.image) }}" alt="{{ member.name }}">
+                        {% else %}
+                        <i class="fas fa-user-md"></i>
+                        {% endif %}
+                    </div>
+                    <div class="faculty-body">
+                        <h4>{{ member.name }}</h4>
+                        <p class="designation">{{ member.designation }}</p>
+                        <p class="qualification"><i class="fas fa-graduation-cap me-2" style="color:var(--primary-color);"></i>{{ member.qualification }}</p>
+                        <p class="experience"><i class="fas fa-stethoscope me-2" style="color:var(--primary-color);"></i>{{ member.experience }}</p>
+                        <span class="department-badge">{{ member.department }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

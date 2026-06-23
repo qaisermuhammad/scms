@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Facilities - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .facilities-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .facilities-section { padding: 80px 0; background: #fff; }
+    .facility-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 40px 30px;
+        text-align: center;
+        transition: all 0.3s;
+        border: 1px solid #eee;
+        height: 100%;
+    }
+    .facility-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    .facility-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: #fff;
+        font-size: 1.8rem;
+        transition: all 0.3s;
+    }
+    .facility-card:hover .facility-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+    .facility-card h4 { font-size: 1.2rem; margin-bottom: 12px; color: var(--dark-color); }
+    .facility-card p { color: #666; font-size: 0.9rem; margin: 0; }
+    
+    .gallery-section { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .gallery-item {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        position: relative;
+        height: 250px;
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        color: #fff;
+        transform: translateY(100%);
+        transition: all 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Our Facilities</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Facilities</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Facilities Intro -->
+<section class="facilities-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Campus Infrastructure</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">World-Class Facilities</h2>
+                <p style="color:#666;">
+                    SCMS provides state-of-the-art facilities to ensure our students receive the best possible education and training environment. From modern laboratories to comfortable hostels, we have everything needed for a complete learning experience.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Facilities Grid -->
+<section class="facilities-section">
+    <div class="container">
+        <div class="row g-4">
+            {% for facility in facilities %}
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas {{ facility.icon }}"></i>
+                    </div>
+                    <h4>{{ facility.title }}</h4>
+                    <p>{{ facility.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Campus Gallery -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Campus Gallery</h2>
+            <p>Take a virtual tour of our modern campus and facilities.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Safi College of Medical Sciences campus building">
+                    <div class="gallery-overlay">
+                        <h5>Main Campus Building</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=500" alt="Laboratory">
+                    <div class="gallery-overlay">
+                        <h5>Modern Laboratory</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500" alt="Library">
+                    <div class="gallery-overlay">
+                        <h5>Digital Library</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=500" alt="Classroom">
+                    <div class="gallery-overlay">
+                        <h5>Smart Classroom</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500" alt="Hospital">
+                    <div class="gallery-overlay">
+                        <h5>Clinical Training Center</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500" alt="Sports">
+                    <div class="gallery-overlay">
+                        <h5>Sports Complex</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Visit Our Campus</h2>
+        <p>Experience our world-class facilities firsthand. Schedule a campus visit today.</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary-custom">Schedule a Visit</a>
+    </div>
+</section>
+{% endblock %}

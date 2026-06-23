@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Programs - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .programs-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .program-list-section { padding: 80px 0; background: #fff; }
+    .program-list-card {
+        display: flex;
+        background: #fff;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: all 0.3s;
+        margin-bottom: 30px;
+        border: 1px solid #eee;
+    }
+    .program-list-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); border-color: var(--primary-color); }
+    .program-list-icon {
+        min-width: 120px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 2.5rem;
+    }
+    .program-list-body { padding: 30px; flex: 1; }
+    .program-list-body h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--dark-color); }
+    .program-list-body p { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+    .program-list-meta { display: flex; gap: 25px; margin-bottom: 15px; flex-wrap: wrap; }
+    .program-list-meta span { font-size: 0.85rem; color: #888; }
+    .program-list-meta span i { color: var(--primary-color); margin-right: 5px; }
+    .program-list-badge {
+        display: inline-block;
+        background: var(--primary-color);
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    @media (max-width: 768px) {
+        .program-list-card { flex-direction: column; }
+        .program-list-icon { min-width: 100%; height: 100px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Programs Offering</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Programs</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Programs Intro -->
+<section class="programs-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Academic Programs</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Degree Programs at SCMS</h2>
+                <p style="color:#666;">
+                    Safi College of Medical Sciences currently offers three programs: BS Generic, LHV, and CNA. Program details will be updated as the college expands.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Programs List -->
+<section class="program-list-section">
+    <div class="container">
+        {% for program in programs %}
+        <div class="program-list-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+            <div class="program-list-icon">
+                <i class="fas fa-{{ program.icon }}"></i>
+            </div>
+            <div class="program-list-body">
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                    <h3>{{ program.title }}</h3>
+                    <span class="program-list-badge">{{ program.affiliation }}</span>
+                </div>
+                <p>{{ program.description }}</p>
+                <div class="program-list-meta">
+                    <span><i class="far fa-clock"></i>Duration: {{ program.duration }}</span>
+                    <span><i class="fas fa-users"></i>Seats: {{ program.seats }}</span>
+                    <span><i class="fas fa-graduation-cap"></i>Eligibility: {{ program.eligibility }}</span>
+                </div>
+                <a href="{{ url_for('program_detail', program_id=program.id) }}" class="btn btn-outline-custom">View Program Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Start Your Application Today</h2>
+        <p>Admissions are now open for the current programs at SCMS. Secure your place in one of Pakistan's emerging healthcare education institutions.</p>
+        <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom">Apply Now</a>
+    </div>
+</section>
+{% endblock %}

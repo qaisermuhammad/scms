@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .contact-section { padding: 80px 0; background: #fff; }
+    .contact-info-card {
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        color: #fff;
+        border-radius: var(--border-radius);
+        padding: 40px 30px;
+        height: 100%;
+    }
+    .contact-info-card h3 { color: #fff; margin-bottom: 25px; font-size: 1.3rem; }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+    .contact-info-item i { font-size: 1.3rem; color: var(--accent-color); margin-top: 3px; }
+    .contact-info-item h5 { font-size: 0.95rem; margin-bottom: 5px; color: #fff; }
+    .contact-info-item p { color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0; }
+    
+    .contact-form-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 40px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        border: 1px solid #eee;
+    }
+    .form-control-custom {
+        border: 2px solid #eee;
+        border-radius: var(--border-radius);
+        padding: 12px 15px;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+    }
+    .form-control-custom:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(26,95,42,0.1);
+    }
+    .form-label { font-weight: 600; color: var(--dark-color); font-size: 0.9rem; }
+    
+    .map-section { padding: 0; }
+    .map-container {
+        position: relative;
+        min-height: 460px;
+        background: #e9ecef;
+    }
+    .map-container iframe {
+        width: 100%;
+        height: 460px;
+        border: 0;
+        display: block;
+    }
+    .map-info {
+        position: absolute;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        width: min(92%, 760px);
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 18px 22px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+    }
+    .map-info p { margin: 0; color: #555; font-size: 0.95rem; }
+    .map-info h4 { margin: 0 0 4px; font-size: 1.05rem; color: var(--dark-color); }
+    .map-info a { white-space: nowrap; }
+    @media (max-width: 576px) {
+        .map-info { position: static; transform: none; width: 100%; border-radius: 0; flex-direction: column; align-items: flex-start; }
+    }
+    
+    .email-cards { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .email-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s;
+        border: 1px solid #eee;
+        height: 100%;
+    }
+    .email-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-color: var(--primary-color); }
+    .email-card i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+    .email-card h4 { font-size: 1.1rem; margin-bottom: 8px; color: var(--dark-color); }
+    .email-card a { color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+    .email-card a:hover { color: var(--secondary-color); }
+    .email-card p { color: #666; font-size: 0.85rem; margin: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Contact</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contact Intro -->
+<section class="contact-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Get in Touch</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">We'd Love to Hear From You</h2>
+                <p style="color:#666;">
+                    Have questions about admissions, programs, or anything else? Reach out to us and our team will be happy to assist you.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form & Info -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="contact-info-card">
+                    <h3><i class="fas fa-address-book me-2"></i>Contact Information</h3>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h5>Address</h5>
+                            <p>{{ college.address }}</p>
+                            <p><a href="{{ college.maps_url }}" target="_blank" rel="noopener" style="color:var(--accent-color);">Open in Google Maps</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h5>Phone</h5>
+                            <p>{{ college.phone }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <h5>Mobile</h5>
+                            <p>{{ college.mobile }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h5>General Inquiries</h5>
+                            <p>{{ college.email }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h5>Admissions</h5>
+                            <p>{{ college.admissions_email }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <h5>Website</h5>
+                            <p>{{ college.website }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links mt-4">
+                        <a href="{{ college.facebook_url }}" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8" data-aos="fade-left">
+                <div class="contact-form-card">
+                    <h3 style="margin-bottom:25px;"><i class="fas fa-paper-plane me-2" style="color:var(--primary-color);"></i>Send Us a Message</h3>
+                    <form method="POST" action="{{ url_for('contact') }}">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" name="name" class="form-control form-control-custom" placeholder="Your full name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" name="email" class="form-control form-control-custom" placeholder="your@email.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" name="phone" class="form-control form-control-custom" placeholder="+92-3XX-XXXXXXX">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Subject *</label>
+                                <select name="subject" class="form-control form-control-custom" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="Admission Inquiry">Admission Inquiry</option>
+                                    <option value="Program Information">Program Information</option>
+                                    <option value="Fee Structure">Fee Structure</option>
+                                    <option value="Scholarships">Scholarships</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Feedback">Feedback</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Message *</label>
+                                <textarea name="message" class="form-control form-control-custom" rows="5" placeholder="Write your message here..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary-custom">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Email Addresses -->
+<section class="email-cards">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Department Emails</h2>
+            <p>Contact specific departments directly for faster response.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="email-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>Administration</h4>
+                    <a href="mailto:scms.charsadda@gmail.com">scms.charsadda@gmail.com</a>
+                    <p>General administrative queries</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="email-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Admissions</h4>
+                    <a href="mailto:scms.charsadda@gmail.com">scms.charsadda@gmail.com</a>
+                    <p>Admission related queries</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="email-card">
+                    <i class="fas fa-headset"></i>
+                    <h4>General Contact</h4>
+                    <a href="mailto:scms.charsadda@gmail.com">scms.charsadda@gmail.com</a>
+                    <p>General inquiries & feedback</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="email-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Principal</h4>
+                    <a href="mailto:scms.charsadda@gmail.com">scms.charsadda@gmail.com</a>
+                    <p>Academic matters & concerns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map -->
+<section class="map-section">
+    <div class="map-container">
+        <iframe
+            title="Safi College of Medical Sciences location"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Safi%20College%20of%20Medical%20Sciences%20Mandani%20Charsadda&output=embed">
+        </iframe>
+        <div class="map-info">
+            <div>
+                <h4><i class="fas fa-map-marker-alt me-2" style="color:var(--primary-color);"></i>Visit SCMS</h4>
+                <p>{{ college.address }}</p>
+            </div>
+            <a href="{{ college.maps_url }}" target="_blank" rel="noopener" class="btn btn-primary-custom">Open in Google Maps</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

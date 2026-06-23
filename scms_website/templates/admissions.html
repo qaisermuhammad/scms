@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Admissions - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admissions-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .admissions-section { padding: 80px 0; background: #fff; }
+    .admission-step {
+        display: flex;
+        gap: 25px;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+        transition: all 0.3s;
+    }
+    .admission-step:hover { background: var(--primary-color); color: #fff; transform: translateX(10px); }
+    .admission-step:hover h4, .admission-step:hover p { color: #fff; }
+    .admission-step:hover .step-number { background: #fff; color: var(--primary-color); }
+    .step-number {
+        min-width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .admission-step h4 { font-size: 1.1rem; margin-bottom: 8px; color: var(--dark-color); }
+    .admission-step p { color: #666; font-size: 0.9rem; margin: 0; }
+    
+    .programs-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .programs-table th { background: var(--primary-color); color: #fff; padding: 15px; text-align: left; font-size: 0.9rem; }
+    .programs-table td { padding: 15px; border-bottom: 1px solid #eee; color: #666; font-size: 0.9rem; }
+    .programs-table tr:hover { background: #f8f9fa; }
+    .programs-table a { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+    .programs-table a:hover { color: var(--secondary-color); }
+    
+    .faq-section { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .accordion-item { border: none; margin-bottom: 15px; border-radius: var(--border-radius); overflow: hidden; }
+    .accordion-button { background: #fff; font-weight: 600; color: var(--dark-color); padding: 20px 25px; }
+    .accordion-button:not(.collapsed) { background: var(--primary-color); color: #fff; box-shadow: none; }
+    .accordion-button:focus { box-shadow: none; border-color: transparent; }
+    .accordion-body { padding: 20px 25px; color: #666; background: #fff; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Admissions</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Admissions</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Admissions Intro -->
+<section class="admissions-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Join SCMS</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Admissions 2026</h2>
+                <p style="color:#666;">
+                    Applications are now open for the current programs at SCMS. Follow the steps below to apply and begin your journey towards a rewarding career in healthcare.
+                </p>
+                <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                    <a href="#" class="btn btn-primary-custom">Download Prospectus</a>
+                    <a href="#" class="btn btn-outline-custom">Download Application Form</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Process -->
+<section class="admissions-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Admission Process</h2>
+            <p>Follow these simple steps to secure your admission at SCMS.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="admission-step" data-aos="fade-up" data-aos-delay="0">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>Online Application</h4>
+                        <p>Fill out the online application form available on our website or collect a physical form from the college admissions office. Submit all required documents along with the application fee.</p>
+                    </div>
+                </div>
+                <div class="admission-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>Document Verification</h4>
+                        <p>Our admissions committee will verify all submitted documents including academic certificates, CNIC, domicile, and other required paperwork.</p>
+                    </div>
+                </div>
+                <div class="admission-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>Entry Test</h4>
+                        <p>Eligible candidates will be required to appear for an entry test conducted as per KMU policy. The test assesses knowledge in relevant science subjects.</p>
+                    </div>
+                </div>
+                <div class="admission-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h4>Interview</h4>
+                        <p>Shortlisted candidates will be called for a personal interview to assess their motivation, communication skills, and suitability for the healthcare profession.</p>
+                    </div>
+                </div>
+                <div class="admission-step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">5</div>
+                    <div>
+                        <h4>Final Selection & Enrollment</h4>
+                        <p>Final selection is based on merit (academic record + entry test + interview). Selected candidates must complete fee payment and enrollment formalities within the given deadline.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Overview -->
+<section class="admissions-section" style="background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Programs Overview</h2>
+            <p>Quick reference for all programs offered at SCMS.</p>
+        </div>
+        <div class="table-responsive" data-aos="fade-up">
+            <table class="programs-table">
+                <thead>
+                    <tr>
+                        <th>Program</th>
+                        <th>Duration</th>
+                        <th>Seats</th>
+                        <th>Eligibility</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for program in programs %}
+                    <tr>
+                        <td><strong>{{ program.title }}</strong></td>
+                        <td>{{ program.duration }}</td>
+                        <td>{{ program.seats }}</td>
+                        <td>{{ program.eligibility }}</td>
+                        <td><a href="{{ url_for('program_detail', program_id=program.id) }}">Details <i class="fas fa-arrow-right ms-1"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about admissions at SCMS.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion" data-aos="fade-up">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What is the last date to apply for admissions?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                The last date to submit applications will be announced by the admissions office. Late applications will not be entertained after the deadline is published.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Is there an entry test for admission?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, all applicants are required to appear for an entry test conducted as per KMU policy. The test covers subjects relevant to the chosen program.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Are scholarships available?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, SCMS offers merit-based and need-based scholarships to deserving students. Scholarship applications can be submitted along with the admission form.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Does SCMS provide hostel accommodation?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, we provide separate, secure hostel facilities for male and female students with mess, Wi-Fi, and recreational areas. Hostel seats are limited and allocated on a first-come, first-served basis.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                What documents are required for admission?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Required documents include: Matric Certificate, relevant prerequisite certificate, CNIC/B-Form, Domicile Certificate, 4 Passport Size Photos, and Character Certificate.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Ready to Apply?</h2>
+        <p>Don't miss the opportunity to join one of Pakistan's leading healthcare education institutions.</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary-custom">Contact Admissions Office</a>
+    </div>
+</section>
+{% endblock %}

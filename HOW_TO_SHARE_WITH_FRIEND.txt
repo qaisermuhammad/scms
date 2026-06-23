@@ -1,0 +1,31 @@
+How to share this website with a friend
+======================================
+
+Best simple method:
+
+1. Zip the "scms_website" folder together with "START_WEBSITE.bat".
+   You can skip/delete "scms_website\.venv" before zipping because it will be created again.
+2. Send the zip file to your friend through Google Drive, WhatsApp, USB, or email.
+3. Ask your friend to extract/unzip it.
+4. Ask your friend to double-click "START_WEBSITE.bat".
+5. The website should open automatically in the browser.
+
+Important:
+
+- Your friend needs Windows.
+- Your friend needs Python installed.
+- If Python is not installed, download it from:
+  https://www.python.org/downloads/
+- During Python installation, tick:
+  "Add python.exe to PATH"
+- The first run needs internet because it installs Flask packages.
+- After setup, keep the black command window open while viewing the website.
+- To stop the website, close the black command window or press CTRL+C.
+
+The local website address is:
+
+http://127.0.0.1:5000
+
+If you want your friend to open the website from anywhere without installing Python,
+the website needs to be hosted online on a service such as Render, PythonAnywhere,
+or a normal web hosting/VPS server.

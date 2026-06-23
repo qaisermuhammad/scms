@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}News & Updates - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .news-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .news-list-section { padding: 80px 0; background: #fff; }
+    .news-list-card {
+        display: flex;
+        background: #fff;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: all 0.3s;
+        margin-bottom: 30px;
+        border: 1px solid #eee;
+    }
+    .news-list-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+    .news-list-date {
+        min-width: 100px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+    .news-list-date .day { font-size: 2rem; font-weight: 700; line-height: 1; }
+    .news-list-date .month { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+    .news-list-date .year { font-size: 0.8rem; opacity: 0.8; }
+    .news-list-body { padding: 25px 30px; flex: 1; }
+    .news-list-body .category-badge {
+        display: inline-block;
+        background: var(--accent-color);
+        color: #fff;
+        padding: 3px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .news-list-body h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark-color); }
+    .news-list-body p { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+    .news-list-body a { color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+    .news-list-body a:hover { color: var(--secondary-color); }
+    @media (max-width: 768px) {
+        .news-list-card { flex-direction: column; }
+        .news-list-date { min-width: 100%; flex-direction: row; gap: 10px; padding: 15px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>News & Updates</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">News</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- News Intro -->
+<section class="news-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Stay Informed</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">Latest News & Announcements</h2>
+                <p style="color:#666;">
+                    Stay updated with the latest happenings, events, and announcements from Safi College of Medical Sciences.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News List -->
+<section class="news-list-section">
+    <div class="container">
+        {% for item in news %}
+        <div class="news-list-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+            <div class="news-list-date">
+                <span class="day">{{ item.date.split('-')[2] }}</span>
+                <span class="month">
+                    {% set months = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'} %}
+                    {{ months.get(item.date.split('-')[1], item.date.split('-')[1]) }}
+                </span>
+                <span class="year">{{ item.date.split('-')[0] }}</span>
+            </div>
+            <div class="news-list-body">
+                <span class="category-badge">{{ item.category }}</span>
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.summary }}</p>
+                <a href="{{ item.link }}">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Get the latest news and updates delivered directly to your inbox.</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email address" style="border-radius:50px 0 0 50px;padding:12px 20px;">
+                    <button class="btn btn-primary-custom" type="button" style="border-radius:0 50px 50px 0;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,137 @@
+BEFORE YOU START
+----------------
+
+You need:
+
+1. A Windows computer or laptop.
+2. Internet connection for the first run.
+3. Python installed on your computer.
+
+
+
+
+If Python is not installed:
+
+1. Open this website:
+   https://www.python.org/downloads/
+
+2. Download Python.
+
+3. Install Python.
+
+4. IMPORTANT:
+   During installation, tick/check this option:
+
+   Add python.exe to PATH
+
+5. Finish the installation.
+
+
+
+
+
+HOW TO OPEN THE WEBSITE
+-----------------------
+
+1. Extract/unzip scms_website.rar.
+
+   Do not run it from inside the zip file.
+   First extract it.
+
+2. Open the extracted folder.
+
+3. Find this file:
+
+   START_WEBSITE.bat
+
+4. Double-click:
+
+   START_WEBSITE.bat
+
+5. A black command window will open.
+
+   This is normal.
+   Do not close this black window.
+
+6. Wait for the website to start.
+
+   The first time can take a few minutes because it may install required files.
+
+7. Your browser should open automatically.
+
+8. If the browser does not open automatically, manually open Google Chrome, or any browser and type this address:
+
+   http://127.0.0.1:5000
+
+
+VERY IMPORTANT
+--------------
+
+Keep the black command window open while checking the website.
+
+If you close the black command window, the website will stop working.
+
+If the website stops working, double-click START_WEBSITE.bat again.
+
+
+PAGES TO CHECK
+--------------
+
+Please open the following link to access your website:
+
+
+http://127.0.0.1:5000
+
+
+
+WHAT TO CHECK
+-------------
+
+Please check these things carefully:
+
+1. Is the college name correct?
+
+2. Is the logo correct?
+
+3. Is the building picture correct?
+
+4. Is Dr Siyyar Ahmad Safi's name correct?
+
+5. Is his qualification correct?
+
+   MBBS, FCPS, MHPE
+
+6. Is his specialty correct?
+
+   ENT and Rhinoplasty Surgeon
+
+7. Is the Facebook link correct?
+
+8. Is the Google Maps location correct?
+
+9. Are the phone numbers correct?
+
+10. Are the email addresses correct?
+
+11. Are all programs/courses correct?
+
+12. Are there any spelling mistakes?
+
+13. Are there any wrong dates?
+
+14. Are the gallery videos working?
+
+15. Does the website look good on your screen?
+
+
+
+That is all.
+
+
+FINAL NOTE
+----------
+
+This is only a preview website for review.
+
+After final corrections, it can be uploaded online so everyone can open it
+without using START_WEBSITE.bat.

@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - {{ college.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .gallery-hero { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .gallery-section { padding: 80px 0; background: #fff; }
+    .gallery-item {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        position: relative;
+        height: 280px;
+        margin-bottom: 24px;
+        cursor: pointer;
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(26,95,42,0.9), transparent);
+        display: flex;
+        align-items: flex-end;
+        padding: 25px;
+        opacity: 0;
+        transition: all 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay h5 { color: #fff; font-size: 1.1rem; margin: 0; }
+    .gallery-overlay p { color: rgba(255,255,255,0.8); font-size: 0.85rem; margin: 5px 0 0; }
+    
+    .video-section { padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .video-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        transition: all 0.3s;
+        height: 100%;
+    }
+    .video-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+    .video-thumb {
+        height: 200px;
+        background: linear-gradient(135deg, var(--primary-color), #0d3d16);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 3rem;
+        position: relative;
+    }
+    .video-thumb i { transition: all 0.3s; }
+    .video-card:hover .video-thumb i { transform: scale(1.2); }
+    .video-body { padding: 20px; }
+    .video-body h5 { font-size: 1rem; margin-bottom: 5px; color: var(--dark-color); }
+    .video-body p { color: #666; font-size: 0.85rem; margin: 0; }
+    .video-card video {
+        width: 100%;
+        height: 220px;
+        display: block;
+        object-fit: cover;
+        background: #111;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <h1>Gallery</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active">Gallery</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Gallery Intro -->
+<section class="gallery-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <span style="color:var(--primary-color);font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:0.85rem;">Visual Journey</span>
+                <h2 style="font-size:2.2rem;margin:15px 0 20px;">SCMS Photo Gallery</h2>
+                <p style="color:#666;">
+                    Explore moments from our campus, events, student activities, and facilities through our photo gallery.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo Gallery -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Campus Photos</h2>
+            <p>Glimpses of life at Safi College of Medical Sciences.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Safi College of Medical Sciences campus building">
+                    <div class="gallery-overlay">
+                        <h5>Main Campus Building</h5>
+                        <p>The heart of SCMS education</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=500" alt="Laboratory">
+                    <div class="gallery-overlay">
+                        <h5>Advanced Laboratory</h5>
+                        <p>State-of-the-art equipment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500" alt="Library">
+                    <div class="gallery-overlay">
+                        <h5>Digital Library</h5>
+                        <p>Knowledge at your fingertips</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=500" alt="Classroom">
+                    <div class="gallery-overlay">
+                        <h5>Smart Classroom</h5>
+                        <p>Interactive learning environment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500" alt="Hospital Training">
+                    <div class="gallery-overlay">
+                        <h5>Clinical Training</h5>
+                        <p>Hands-on hospital experience</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500" alt="Sports">
+                    <div class="gallery-overlay">
+                        <h5>Sports Complex</h5>
+                        <p>Physical fitness & recreation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500" alt="Graduation">
+                    <div class="gallery-overlay">
+                        <h5>Graduation Ceremony</h5>
+                        <p>Celebrating achievements</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500" alt="Student Life">
+                    <div class="gallery-overlay">
+                        <h5>Student Life</h5>
+                        <p>Vibrant campus community</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="800">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500" alt="Study Session">
+                    <div class="gallery-overlay">
+                        <h5>Study Sessions</h5>
+                        <p>Collaborative learning</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Videos -->
+<section class="video-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Campus Videos</h2>
+            <p>Watch videos about SCMS life, events, and achievements.</p>
+        </div>
+        <div class="row g-4">
+            {% for i in range(1, 10) %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ (loop.index0 % 3) * 100 }}">
+                <div class="video-card">
+                    <video controls preload="metadata">
+                        <source src="{{ url_for('static', filename='videos/campus-video-' ~ i ~ '.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-body">
+                        <h5>SCMS Campus Video {{ i }}</h5>
+                        <p>Video highlight from Safi College of Medical Sciences.</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container" data-aos="zoom-in">
+        <h2>Be Part of Our Story</h2>
+        <p>Join SCMS and create your own memorable moments.</p>
+        <a href="{{ url_for('admissions') }}" class="btn btn-primary-custom">Apply Now</a>
+    </div>
+</section>
+{% endblock %}
