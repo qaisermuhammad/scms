@@ -2,12 +2,12 @@
 
 ## Current state
 - The website is a Flask app with SQLite for local data storage and PostgreSQL for production.
-- The code currently runs locally through `START_WEBSITE.bat` or `python scms_website/app.py`.
+- The code currently runs locally through `START_WEBSITE.bat` or `python app.py`.
 - Production hosting, domain purchase, and DNS are still external steps.
 
 ## Recommended domain workflow
 1. Buy `scms.edu.pk` or `www.scms.edu.pk` from PKNIC.
-2. Deploy the Flask app to Railway.
+2. Deploy the Flask app to Railway from the repo root.
 3. Add PostgreSQL on Railway and set `DATABASE_URL`.
 4. Point the domain to Railway with the DNS records Railway provides.
 5. Enable HTTPS with the managed certificate Railway provides.
@@ -20,6 +20,10 @@
    - `SCMS_MAIL_DEFAULT_SENDER`
    - Default contact email: `scms.charsadda@gmail.com`
    - Default contact number: `+92 333 0926111`
+
+## Railway Setup Note
+- Railway can scan the repo root directly now.
+- The app uses `gunicorn` in the root-level `Procfile` for production startup.
 
 ## Production recommendations
 - Use a real database backup strategy once the site is hosted.

@@ -1,0 +1,1 @@
+web: gunicorn scms_website.app:app

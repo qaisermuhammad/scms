@@ -32,18 +32,23 @@ This is a Flask-based website for SCMS with a server-rendered frontend, a lightw
 ## Project Structure
 
 ```text
-scms_website/
+.
 |-- app.py
-|-- __init__.py
-|-- config.py
-|-- extensions.py
-|-- models.py
-|-- routes.py
-|-- seed.py
 |-- requirements.txt
-|-- tests/
-|-- templates/
-`-- static/
+|-- Procfile
+|-- scms_website/
+|   |-- __init__.py
+|   |-- config.py
+|   |-- extensions.py
+|   |-- models.py
+|   |-- routes.py
+|   |-- seed.py
+|   |-- tests/
+|   |-- templates/
+|   `-- static/
+|-- README.md
+|-- README.txt
+`-- DEPLOYMENT.md
 ```
 
 ## Run Locally
@@ -51,7 +56,6 @@ scms_website/
 1. Install dependencies:
 
 ```bash
-cd scms_website
 pip install -r requirements.txt
 ```
 
@@ -93,4 +97,3 @@ Production uses `DATABASE_URL` automatically when available. Local development f
 Website developed by **Qaiser Muhammad Abdur Rehman**  
 Email: `qaisermuhammad@hotmail.com`  
 Facebook: `www.facebook.com/qaisermuhammad`
-
