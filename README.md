@@ -1,4 +1,4 @@
-# Safi College of Medical Sciences Website
+# Safi College of Medical Sciences
 
 Official website for **Safi College of Medical Sciences, Mandani, Charsadda, Khyber Pakhtunkhwa, Pakistan**.
 
