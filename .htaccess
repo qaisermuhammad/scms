@@ -1,0 +1,81 @@
+# SCMS Security & Performance Configuration
+
+# Disable directory browsing
+Options -Indexes
+
+# Enable rewrite engine
+RewriteEngine On
+
+# Redirect HTTP to HTTPS (uncomment after SSL is active)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "(composer\.(json|lock)|package\.json|\.env|\.gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to includes folder directly
+RewriteRule ^includes(?:/|$) - [F,L,NC]
+
+# Deny access to data folder directly
+RewriteRule ^data(?:/|$) - [F,L,NC]
+
+# Deny access to admin folder (allow only specific files)
+# RewriteCond %{REQUEST_URI} ^/admin/ [NC]
+# RewriteRule .* - [F,L]
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType video/mp4 "access plus 1 month"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# PHP settings (if PHP runs as Apache module)
+# Allow multi-photo phone uploads (~10MB each), then server-side optimize
+<IfModule php_module>
+    php_flag display_errors off
+    php_value upload_max_filesize 20M
+    php_value post_max_size 64M
+    php_value max_execution_time 120
+    php_value memory_limit 256M
+</IfModule>
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_value upload_max_filesize 20M
+    php_value post_max_size 64M
+    php_value max_execution_time 120
+    php_value memory_limit 256M
+</IfModule>
+
+# Security headers & Anti-cache rules
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Prevent caching of PHP pages so live server uploads update immediately
+    <FilesMatch "\.(php)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>

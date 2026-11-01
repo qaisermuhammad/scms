@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /includes/
+Disallow: /data/
+Disallow: /assets/docs/
+
+Sitemap: https://www.scms.edu.pk/sitemap.xml

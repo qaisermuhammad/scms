@@ -1,0 +1,30 @@
+# Runtime data, submissions and credentials
+/data/*
+!/data/.gitkeep
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.db
+*.db-*
+.env
+.env.*
+*credentials*.php
+*.key
+*.pem
+*.p12
+*.pfx
+# Uploaded content and local artifacts
+/assets/images/gallery_*
+/scms.zip
+*.zip
+*.rar
+/_preview/
+/.continue/
+/.continueignore
+/scms-laravel/
+/scms-laravel-partial/
+/graphify-out/
+__pycache__/
+*.pyc
+node_modules/
+vendor/
